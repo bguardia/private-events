@@ -4,11 +4,14 @@
             <h2 class="title is-3">Events</h2>
             <% @events.each do |event| %>
                 <div class="box">
-                    <h3 class="title is-4"><%= event.title %></h3>
+                    <%= link_to event_path(event) do %>
+                        <h3 class="title is-4"><%= event.title %></h3>
+                    <% end %>
                     <h4 class="subtitle"><%= event.start_date %></h4>
                     <div class="content">
                         <%= event.body%>
                     </div>
+                
                 </div>
             <% end %>
         </div>
