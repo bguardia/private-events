@@ -10,8 +10,31 @@
         <div class="content">
             <small>Created by <%= @event.host.email %></small>
         </div>
-        <%= link_to "Attend", "#", class: "button is-primary" %>
+        <% if user_signed_in? && current_user.attended_events.include?(@event) %>
+            <%= link_to "Skip", event_attendee_path(@event, current_user), 
+                method: :delete, class: "button is-danger is-light"%>
+        <% else %>
+            <%= link_to "Attend", event_attendees_path(@event), 
+                method: :post, class: "button is-primary" %>
+        <% end %>
     </div>
 </div>
+<div class="column is-one-quarter">
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="title is-3">Attendees</h3>
+        </div>
+        <div class="content">
+            <% if @event.attendees.empty? %>
+                No attendees yet
+            <% else %>
+                <% @event.attendees.each do |attendee| %>
+                <span><%= attendee.email %></span><br />
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
 </div>
 </section>
