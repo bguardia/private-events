@@ -8,7 +8,7 @@
             <p><%= @event.body %></p>
         </div>
         <div class="content">
-            <small>Created by <%= @event.host.email %></small>
+            <small>Created by <%= link_to @event.host.email, user_path(@event.host) %></small>
         </div>
         <% if user_signed_in? && current_user.attended_events.include?(@event) %>
             <%= link_to "Skip", event_attendee_path(@event, current_user), 
@@ -28,9 +28,13 @@
             <% if @event.attendees.empty? %>
                 No attendees yet
             <% else %>
+                <ul>
                 <% @event.attendees.each do |attendee| %>
-                <span><%= attendee.email %></span><br />
+                    <li>
+                    <%= link_to attendee.email, user_path(attendee) %>
+                    </li>
                 <% end %>
+                </ul>
             <% end %>
         </div>
     </div>
