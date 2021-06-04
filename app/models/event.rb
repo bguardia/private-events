@@ -19,7 +19,7 @@ class Event < ApplicationRecord
     end
 
     def past?
-        start_date < DateTime.current
+        end_date < DateTime.current
     end
 
     def ongoing?

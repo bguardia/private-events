@@ -30,8 +30,9 @@
             <%= link_to "Skip", event_attendee_path(@event, current_user), 
                 method: :delete, class: "button is-danger is-light"%>
         <% else %>
-            <%= link_to "Attend", event_attendees_path(@event), 
-                method: :post, class: "button is-primary" %>
+            <%= link_to event_attendees_path(@event), method: :post do %>
+                <button class="button is-primary" <%= "disabled" if @event.past? %>>Attend</button>
+            <% end %>
         <% end %>
     </div>
 </div>
