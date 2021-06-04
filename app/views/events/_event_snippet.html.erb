@@ -1,0 +1,17 @@
+<div class="box">
+    <%= link_to event_path(event) do %>
+        <h3 class="title is-4"><%= event.title %></h3>
+    <% end %>
+    <h4 class="subtitle">
+        <% if event.upcoming? %>
+            Starts on <%= event.start_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
+        <% elsif event.ongoing? %>
+            Started on <%= event.start_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
+        <% else %>
+            Ended on <%= event.end_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
+        <% end %>
+    </h4>
+    <div class="content">
+        <%= event.body%>
+    </div>     
+</div>
