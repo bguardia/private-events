@@ -1,8 +1,22 @@
 <section class="section">
     <div class="columns">
         <div class="column is-half is-offset-one-quarter">
-            <h2 class="title is-3">Events</h2>
-            <% @events.each do |event| %>
+            <h2 class="title is-3">Upcoming Events</h2>
+            <% @events.upcoming.each do |event| %>
+                <div class="box">
+                    <%= link_to event_path(event) do %>
+                        <h3 class="title is-4"><%= event.title %></h3>
+                    <% end %>
+                    <h4 class="subtitle"><%= event.start_date %></h4>
+                    <div class="content">
+                        <%= event.body%>
+                    </div>
+                
+                </div>
+            <% end %>
+
+            <h2 class="title is-3">Past Events</h2>
+            <% @events.past.each do |event| %>
                 <div class="box">
                     <%= link_to event_path(event) do %>
                         <h3 class="title is-4"><%= event.title %></h3>

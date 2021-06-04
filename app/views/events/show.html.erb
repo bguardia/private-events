@@ -3,7 +3,11 @@
 <div class="column is-half is-offset-one-quarter">
     <div class="box">
         <h2 class="title is-3"><%= @event.title %></h2>
-        <h3 class="subtitle"><%= @event.start_date %></h3>
+        <h3 class="subtitle"><%= @event.start_date %>
+        <% if !@event.end_date.nil? %>
+        &nbsp;to <%= @event.end_date %>
+        <% end %>
+        </h3>
         <div class="content">
             <p><%= @event.body %></p>
         </div>
