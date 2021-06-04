@@ -7,15 +7,23 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # USERS
+
+require 'csv'
+
 puts "Creating users..."
-user_data = CSV.parse(File.open("users.csv").readlines, headers: true)
+csv_file = File.open("./db/users.csv", "r")
+user_data = CSV.parse(csv_file, headers: true)
 user_data.each do |row|
-    User.create(row.to_h)
+    User.create(name: row["name"],
+                email: row["email"],
+                password: row["password"],
+                password_confirmation: row["password_confirmation"])
 end
 
 # EVENTS
 puts "Creating events..."
-hosts = User.find(1..10)
+dummy_text = "Duis posuere diam suscipit ipsum porta, a iaculis sem fringilla. Morbi sagittis tincidunt dictum. Mauris vitae dapibus purus. Proin tempus eros in diam imperdiet varius. Maecenas id justo pulvinar, sagittis tortor eu, aliquet massa. Vivamus nibh nulla, suscipit vel auctor mollis, lacinia nec elit. Nulla ornare lacinia velit, ut auctor tortor fringilla a."
+hosts = User.find((1..10).to_a)
 current_date = DateTime.current
 hosts.each_with_index do |host, i|
     5.times do |c|
