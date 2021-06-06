@@ -25,16 +25,50 @@ class EventsController < ApplicationController
         end
     end
 
+    def edit
+        begin
+            @event = current_user.hosted_events.find(params[:id])
+        rescue
+            if Event.find_by(id: params[:id])
+                flash[:alert] = "You don't have permission to edit that event."
+            else
+                flash[:alert] = "That event doesn't exist."
+            end
+            redirect_to root_path
+        end
+    end
+
+    def update
+        begin
+            @event = current_user.hosted_events.find(params[:id])
+        rescue
+            if Event.find_by(id: params[:id])
+                flash[:alert] = "You don't have permission to edit that event."
+            else
+                flash[:alert] = "That event doesn't exist."
+            end
+            redirect_to root_path
+        end
+
+        if @event.update(event_params)
+            flash[:notice] = "Successfully updated event."
+            redirect_to event_path(@event)
+        else
+            flash[:alert] = "There was a problem updating your event."
+            render "edit"
+        end
+    end
+
     def destroy
         begin
             @event = current_user.hosted_events.find(params[:id])
         rescue
-            if Event.find(params[:id])
+            if Event.find_by(id: params[:id])
                 flash[:alert] = "You don't have permission to delete that event."
             else
                 flash[:alert] = "That event doesn't exist."
             end
-            redirect_to event_path(@event)
+            redirect_to root_path
         end
 
         @event.destroy
