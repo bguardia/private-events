@@ -2,18 +2,35 @@
     <div class="columns">
         <div class="column is-half is-offset-one-quarter">
             <h2 class="title is-3">Upcoming Events</h2>
-            <% @events.upcoming.each do |event| %>
-                   <%= render 'events/event_snippet', event: event %> 
+            <% unless @events.upcoming.empty? %>
+                <% @events.upcoming.each do |event| %>
+                    <%= render 'events/event_snippet', event: event %> 
+                <% end %>
+            <% else %>
+            <div class="content">
+                There aren't any upcoming events at the moment.
+            </div>
             <% end %>
-
             <h2 class="title is-3">Ongoing Events</h2>
-            <% @events.ongoing.each do |event| %>
-                   <%= render 'events/event_snippet', event: event %> 
+            <% unless @events.ongoing.empty? %>
+                <% @events.ongoing.each do |event| %>
+                    <%= render 'events/event_snippet', event: event %> 
+                <% end %>
+            <% else %>
+                <div class="content">
+                    There aren't any ongoing events at the moment.
+                </div>
             <% end %>
 
             <h2 class="title is-3">Past Events</h2>
-            <% @events.past.each do |event| %>
-                <%= render 'events/event_snippet', event: event %>
+            <% unless @events.past.empty? %>
+                <% @events.past.each do |event| %>
+                    <%= render 'events/event_snippet', event: event %>
+                <% end %>
+            <% else %>
+                <div class="content">
+                    There aren't any past events at the moment.
+                </div>
             <% end %>
         </div>
     </div>

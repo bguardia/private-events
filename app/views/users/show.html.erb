@@ -10,7 +10,7 @@
         </div>
     </div>
 <h2 class="title is-3">Attending</h2>
-    <% if @user.attended_events.size %>
+    <% unless @user.attended_events.empty? %>
         <% @user.attended_events.each do |event| %>
             <div class="box">
                     <%= link_to event_path(event) do %>
@@ -24,7 +24,9 @@
             </div>
         <% end %>
     <% else %>
-        This user is not attending any events.
+        <div class="content">
+            This user is not attending any events at the moment.
+        </div>
     <% end %>
 </div>
 </div>
