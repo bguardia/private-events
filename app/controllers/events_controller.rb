@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
+    before_action :calculate_date, only: [:create, :update]
 
     def index
         @events = Event.all
@@ -78,5 +79,12 @@ class EventsController < ApplicationController
     private
     def event_params
         params.require(:event).permit(:title, :body, :start_date, :end_date)
+    end
+
+    def calculate_date
+        tz = ActiveSupport::TimeZone.new(params.fetch("time_zone", "Tokyo")).formatted_offset
+        end_date = params[:event][:start_date] > params[:event][:end_date] ? params[:event][:start_date] : params[:event][:end_date]
+        params[:event][:start_date] = "#{params[:event][:start_date]}T#{params.fetch("start_time", "00:00:00")}#{tz}"
+        params[:event][:end_date] = "#{end_date}T#{params.fetch("end_time", "00:00:00")}#{tz}"
     end
 end

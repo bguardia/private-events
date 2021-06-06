@@ -11,7 +11,7 @@ class Event < ApplicationRecord
     end
 
     def start_time
-        self.start_date.strftime('%k:%M')
+        self.start_date.localtime.strftime('%k:%M')
     end
 
     def upcoming?

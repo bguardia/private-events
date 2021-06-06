@@ -4,13 +4,13 @@
     <% end %>
     <h4 class="subtitle">
         <% if event.upcoming? %>
-            Starts on <%= event.start_date.strftime('%B %-d, %Y at %k:%M') %>
+            Starts on <%= event.start_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
         <% elsif event.ongoing? %>
-            Started on <%= event.start_date.strftime('%B %-d, %Y at %k:%M') %>
+            Started on <%= event.start_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
         <% else %>
-            Ended on <%= event.end_date.strftime('%B %-d, %Y at %k:%M') %>
+            Ended on <%= event.end_date.localtime.strftime('%B %-d, %Y at %k:%M') %>
         <% end %>
-        &nbsp;(GMT <%= event.start_date.formatted_offset %>)
+        &nbsp;(GMT <%= event.start_date.localtime.formatted_offset %>)
     </h4>
     <div class="content">
         <%= event.body%>

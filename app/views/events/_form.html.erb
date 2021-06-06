@@ -12,31 +12,69 @@
         <%= f.text_area :body, class: "textarea", rows: "10" %>
     </div>
 </div>
+<fieldset>
+    <legend class="title is-4">Date and time</legend>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="field">
+                    <div class="control">
+                        <%= f.label :start_date, class: "label" %>
+                        <%= f.date_field :start_date, class: "input" %>
+                    </div>
+                </div>
+            </div>
 
-
-<div class="level">
-
-    <div class="level-item">
-        <div class="field">
-            <div class="control">
-                <%= f.label :start_date, class: "label" %>
-                <%= f.datetime_local_field :start_date, class: "input" %>
+            <div class="level-item">
+                <div class="field">
+                    <div class="control">
+                        <label for="start_time" class="label">Start Time</label>
+                        <input type="time" id="start_time" name="start_time" class="input" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="level-item">
-        <div class="field">
-            <div class="control">
-                <%= f.label :end_date, class: "label" %>
-                <%= f.datetime_local_field :end_date, class: "input" %>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="field">
+                    <div class="control">
+                        <%= f.label :end_date, class: "label" %>
+                        <%= f.date_field :end_date, class: "input" %>
+                    </div>
+                </div>
+            </div>
+            <div class="level-item">
+                <div class="field">
+                    <div class="control">
+                        <label for="end_time" class="label">End Time</label>
+                        <input type="time" id="end_time" name="end_time" class="input" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-</div>
-
-
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="field">
+                    <div class="control">
+                        <label for="time_zone" class="label">Timezone</label>
+                        <div class="select">
+                            <select name="time_zone" id="time_zone">
+                                <%= time_zone_options_for_select "Tokyo" %>
+                            </select>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<br />
 <div class="field">
     <div class="control">
         <%= f.submit class: "button is-primary" %>
