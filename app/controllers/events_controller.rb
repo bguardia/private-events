@@ -25,6 +25,22 @@ class EventsController < ApplicationController
         end
     end
 
+    def destroy
+        begin
+            @event = current_user.hosted_events.find(params[:id])
+        rescue
+            if Event.find(params[:id])
+                flash[:alert] = "You don't have permission to delete that event."
+            else
+                flash[:alert] = "That event doesn't exist."
+            end
+            redirect_to event_path(@event)
+        end
+
+        @event.destroy
+        redirect_to root_path
+    end
+
     private
     def event_params
         params.require(:event).permit(:title, :body, :start_date, :end_date)

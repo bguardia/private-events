@@ -26,14 +26,32 @@
         <div class="content">
             <small>Created by <%= link_to @event.host.email, user_path(@event.host) %></small>
         </div>
-        <% if user_signed_in? && current_user.attended_events.include?(@event) %>
-            <%= link_to "Skip", event_attendee_path(@event, current_user), 
-                method: :delete, class: "button is-danger is-light"%>
-        <% else %>
-            <%= link_to event_attendees_path(@event), method: :post do %>
-                <button class="button is-primary" <%= "disabled" if @event.past? %>>Attend</button>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <% if user_signed_in? && current_user.attended_events.include?(@event) %>
+                        <%= link_to "Skip", event_attendee_path(@event, current_user), 
+                            method: :delete, class: "button is-danger is-light"%>
+                    <% else %>
+                        <%= link_to event_attendees_path(@event), method: :post do %>
+                            <button class="button is-primary" <%= "disabled" if @event.past? %>>Attend</button>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+            
+            <% if user_signed_in? && current_user == @event.host %>
+            <div class="level-right">
+                <div class="level-item">
+                    <%= link_to event_path(@event), method: :delete, data: { confirm: "Are you sure you want to delete this event?"},
+                        class: "button is-danger" do %>
+                        <span class="icon"><i class="fas fa-trash"></i></span>
+                    <% end %>
+                </div>
+            </div>
             <% end %>
-        <% end %>
+            
+        </div>
     </div>
 </div>
 <div class="column is-one-quarter">
