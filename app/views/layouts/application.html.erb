@@ -30,7 +30,7 @@
     <div class="navbar-end">
       <% if user_signed_in? %>
         <div class="navbar-item">
-          <%= link_to "#{current_user.email}", "#", class: "button is-primary is-light" %>
+          <%= link_to "#{current_user.name}", user_path(current_user), class: "button is-primary is-light" %>
         </div>
         <div class="navbar-item">
           <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button is-info is-light" %>
