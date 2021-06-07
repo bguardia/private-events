@@ -1,33 +1,41 @@
 <section class="section">
 <div class="columns">
-<div class="column is-half is-offset-one-quarter">
-<h2 class="title is-3">User Profile</h2>
-    <div class="box">
-        <h3 class="title is-4"><%= @user.name %></h3>
-        <h4 class="subtitle">Joined <%= time_ago_in_words(@user.created_at) %> ago</h4>
-        <div class="container">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia felis id metus ultricies suscipit. Nulla nec malesuada tortor. Pellentesque posuere elit et scelerisque pulvinar. In posuere nulla in nisl egestas posuere. Nulla feugiat at neque at pretium. Nulla tempus nibh vel neque viverra pretium. Donec odio leo, iaculis id nunc non, bibendum feugiat ipsum. Maecenas nec lobortis arcu. Curabitur bibendum vestibulum ligula, hendrerit laoreet lorem rutrum ac. Suspendisse iaculis purus eu luctus venenatis. Nullam ac nunc quis nibh tristique laoreet. Aliquam molestie fringilla vehicula. Integer bibendum tincidunt tempus. Aenean vitae suscipit nulla, in iaculis nulla. Phasellus a ipsum a quam porttitor vestibulum vitae eget nunc. Cras ut feugiat lorem.</p>
+    <div class="column is-half is-offset-one-quarter">
+    <h2 class="title is-3">User Profile</h2>
+        <div class="box">
+            <h3 class="title is-4"><%= @user.name %></h3>
+            <h4 class="subtitle">Joined <%= time_ago_in_words(@user.created_at) %> ago</h4>
+            <div class="container">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia felis id metus ultricies suscipit. Nulla nec malesuada tortor. Pellentesque posuere elit et scelerisque pulvinar. In posuere nulla in nisl egestas posuere. Nulla feugiat at neque at pretium. Nulla tempus nibh vel neque viverra pretium. Donec odio leo, iaculis id nunc non, bibendum feugiat ipsum. Maecenas nec lobortis arcu. Curabitur bibendum vestibulum ligula, hendrerit laoreet lorem rutrum ac. Suspendisse iaculis purus eu luctus venenatis. Nullam ac nunc quis nibh tristique laoreet. Aliquam molestie fringilla vehicula. Integer bibendum tincidunt tempus. Aenean vitae suscipit nulla, in iaculis nulla. Phasellus a ipsum a quam porttitor vestibulum vitae eget nunc. Cras ut feugiat lorem.</p>
+            </div>
         </div>
-    </div>
-<h2 class="title is-3">Attending</h2>
-    <% unless @user.attended_events.empty? %>
-        <% @user.attended_events.each do |event| %>
-            <div class="box">
-                    <%= link_to event_path(event) do %>
-                        <h3 class="title is-4"><%= event.title %></h3>
-                    <% end %>
-                    <h4 class="subtitle"><%= event.start_date %></h4>
-                    <div class="content">
-                        <%= event.body%>
-                    </div>
-                
+    <h2 class="title is-3">Attending</h2>
+        <% unless @user.attended_events.empty? %>
+            <% @user.attended_events.each do |event| %>
+                <div class="box">
+                        <%= link_to event_path(event) do %>
+                            <h3 class="title is-4"><%= event.title %></h3>
+                        <% end %>
+                        <h4 class="subtitle"><%= event.start_date %></h4>
+                        <div class="content">
+                            <%= event.body%>
+                        </div>
+                    
+                </div>
+            <% end %>
+        <% else %>
+            <div class="content">
+                This user is not attending any events at the moment.
             </div>
         <% end %>
-    <% else %>
-        <div class="content">
-            This user is not attending any events at the moment.
+    </div>
+    <% if user_signed_in? %>
+        <div class="column is-one-quarter">
+            <div class="box">
+                <h3 class="title is-4">Invite to an event</h3>
+                <%= render 'invitations/invite_user_form', invitee: @user, invitation: Invitation.new %>
+            </div>
         </div>
     <% end %>
-</div>
 </div>
 </section>
