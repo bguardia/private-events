@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_035924) do
+ActiveRecord::Schema.define(version: 2021_06_07_035804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 2021_06_04_035924) do
     t.bigint "host_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "invitee_id"
+    t.bigint "event_id"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -46,4 +56,7 @@ ActiveRecord::Schema.define(version: 2021_06_04_035924) do
   end
 
   add_foreign_key "events", "users", column: "host_id"
+  add_foreign_key "invitations", "events"
+  add_foreign_key "invitations", "users", column: "invitee_id"
+  add_foreign_key "invitations", "users", column: "sender_id"
 end
