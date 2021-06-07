@@ -1,0 +1,22 @@
+<%= form_with model: [event, invitation] do |f| %>
+
+    <div class="field">
+        <div class="control">
+            <%= f.label "invitee", "Username", class: "label" %>
+            <%= f.text_field "invitee", class: "input" %>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <%= f.label :body, "Message", class: "label" %>
+            <%= f.text_area :body, class: "textarea", rows: "5" %>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <%= f.submit "Invite", class: "button is-info" %>
+        </div>
+    </div>
+<% end %>
