@@ -5,7 +5,7 @@ class InvitationsController < ApplicationController
         if @event.host == current_user
             @invitee = User.find_by(name: params[:invitation]["invitee"])
             @invitation = current_user.sent_invitations.build(event_id: params[:event_id],
-                                                              invitee_id: @invitee.id,
+                                                              invitee_id: @invitee&.id,
                                                               body: params[:invitation][:body],
                                                               status: 'pending')
 
