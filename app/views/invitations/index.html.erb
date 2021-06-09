@@ -1,0 +1,82 @@
+<section class="section">
+    <div class="columns">
+        <div class="column is-two-thirds is-offset-2">
+
+            <div class="tabs is-centered is-large is-boxed">
+                <ul>
+                    <li class="is-active"><a>Sent</a></li>
+                    <li><a>Received</a></li>
+                </ul>
+            </div>
+
+            <div id="sent_invitations" class="container">
+                <% @sent_invitations.each do |sent_inv| %>
+                    <div class="box">
+                        <h3 class="title is-4">You invited <%= link_to sent_inv.invitee.name, user_path(sent_inv.invitee) %> to <%= link_to sent_inv.event.title, event_path(sent_inv.event) %></h3>
+                        <h4 class="subtitle"><strong>Sent</strong>: <%= sent_inv.created_at %></h4>
+                        <strong>You wrote:</strong>
+                        <p>
+                            <%= sent_inv.body %>
+                        </p>
+                        <% if sent_inv.status == "accepted" %>
+                            <%= sent_inv.invitee.name %> accepted your invitation at <%= sent_inv.updated_at %>.
+                        <% elsif sent_inv.status == "rejected" %>
+                            <%= sent_inv.invitee.name %> denied your invitation <%= sent_inv.updated_at %>.
+                        <% else %>
+                            <%= sent_inv.invitee.name %> has not responded yet.
+                        <% end %>
+
+                        <div class="level">
+                                <div class="level-item level-right">
+                                    <%= link_to invitation_path(sent_inv), method: :delete, class: "button is-danger"  do %>
+                                        <span class="is-icon"><i class="fas fa-trash"></i></span>
+                                    <% end %>
+                                </div>
+                        </div>
+                    
+                    
+                    </div>
+                <% end %>
+
+                <% if @sent_invitations.empty? %>
+                        You have no sent invitations at this time.
+                    <% end %>
+            
+            </div>
+            <br />
+            <div id="received_invitations" class="container">
+                    <% @received_invitations.each do |received_inv| %>
+                        <div class="box">
+                            <h3 class="title is-4">You were invited to <%= link_to received_inv.event.title, event_path(received_inv.event) %> by <%= link_to received_inv.sender.name, user_path(received_inv.sender) %></h3>
+                            <h4 class="subtitle"><strong>Received</strong>: <%= received_inv.created_at %></h4>
+                            <strong>They wrote:</strong>
+                            <p>
+                                <%= received_inv.body %>
+                            </p>
+                            <% if received_inv.status == "pending" %>
+                                You haven't responded yet. Would you like to respond?
+
+                                <%= form_with model: received_inv do |f| %>
+                                    <%= f.hidden_field :id, value: received_inv.id %>
+                                    <div class="field">
+                                        <div class="control">
+                                            <%= f.label :status, "Response:" %>
+                                            <%= f.select :status, [["Accept", "accepted"], ["Decline", "rejected"]]%>
+                                        </div>
+                                    </div>
+                                    <%= f.submit "Respond" %>
+                                <% end %>
+                            <% else %>
+                                You <%= received_inv.status == "accepted" ? "accepted" : "declined" %> this invitation on <%= received_inv.updated_at %>
+                            <% end %>
+                        </div>
+                    <% end %>
+                    
+                    <% if @received_invitations.empty? %>
+                            You have not received any invitations at this time.
+                    <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

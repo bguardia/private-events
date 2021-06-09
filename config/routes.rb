@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :attendees, only: [:create, :destroy]
   end
 
-  resources :invitations, only: [:index, :show, :create, :edit, :destroy]
+  resources :invitations, only: [:index, :show, :create, :update, :destroy]
 
   root to: "events#index"
 

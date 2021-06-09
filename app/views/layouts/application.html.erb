@@ -35,11 +35,16 @@
   <div class="navbar-menu">
     <div class="navbar-end">
       <% if user_signed_in? %>
-        <div class="navbar-item">
-          <%= link_to "#{current_user.name}", user_path(current_user), class: "button is-primary is-light" %>
-        </div>
-        <div class="navbar-item">
-          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "button is-info is-light" %>
+        <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          <%= current_user.name %>
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to "Profile", user_path(current_user), class: "navbar-item" %>
+          <%= link_to "Invitations", invitations_path, class: "navbar-item" %> 
+          <hr class="navbar-divider">
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "navbar-item" %>
         </div>
       <% else %>
         <div class="navbar-item">

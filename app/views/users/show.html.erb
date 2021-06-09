@@ -29,7 +29,7 @@
             </div>
         <% end %>
     </div>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && current_user != @user %>
         <div class="column is-one-quarter">
             <div class="box">
                 <h3 class="title is-4">Invite to an event</h3>
