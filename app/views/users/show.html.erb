@@ -9,25 +9,58 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia felis id metus ultricies suscipit. Nulla nec malesuada tortor. Pellentesque posuere elit et scelerisque pulvinar. In posuere nulla in nisl egestas posuere. Nulla feugiat at neque at pretium. Nulla tempus nibh vel neque viverra pretium. Donec odio leo, iaculis id nunc non, bibendum feugiat ipsum. Maecenas nec lobortis arcu. Curabitur bibendum vestibulum ligula, hendrerit laoreet lorem rutrum ac. Suspendisse iaculis purus eu luctus venenatis. Nullam ac nunc quis nibh tristique laoreet. Aliquam molestie fringilla vehicula. Integer bibendum tincidunt tempus. Aenean vitae suscipit nulla, in iaculis nulla. Phasellus a ipsum a quam porttitor vestibulum vitae eget nunc. Cras ut feugiat lorem.</p>
             </div>
         </div>
-    <h2 class="title is-3">Attending</h2>
-        <% unless @user.attended_events.empty? %>
-            <% @user.attended_events.each do |event| %>
-                <div class="box">
-                        <%= link_to event_path(event) do %>
-                            <h3 class="title is-4"><%= event.title %></h3>
-                        <% end %>
-                        <h4 class="subtitle"><%= event.start_date %></h4>
-                        <div class="content">
-                            <%= event.body%>
-                        </div>
-                    
+        
+        <h2 class="title is-3"><%= @user.name %>'s Events</h2>
+
+        <div class="tabs is-large is-boxed">
+            <ul>
+                <li id="attended_events_tab" class="tab is-active"><a>Attending</a></li>
+                <li id="hosted_events_tab" class="tab"><a>Hosting</a></li>
+            </ul>
+        </div>
+
+        <div id="attended_events_container" class="container">
+            <% unless @user.attended_events.empty? %>
+                <% @user.attended_events.each do |event| %>
+                    <div class="box">
+                            <%= link_to event_path(event) do %>
+                                <h3 class="title is-4"><%= event.title %></h3>
+                            <% end %>
+                            <h4 class="subtitle"><%= event.start_date %></h4>
+                            <div class="content">
+                                <%= event.body%>
+                            </div>
+                        
+                    </div>
+                <% end %>
+            <% else %>
+                <div class="content">
+                    This user is not attending any events at the moment.
                 </div>
             <% end %>
-        <% else %>
-            <div class="content">
-                This user is not attending any events at the moment.
-            </div>
-        <% end %>
+        </div>
+
+        <div id="hosted_events_container" class="container is-hidden">
+            <% unless @user.hosted_events.empty? %>
+                    <% @user.hosted_events.each do |event| %>
+                        <div class="box">
+                                <%= link_to event_path(event) do %>
+                                    <h3 class="title is-4"><%= event.title %></h3>
+                                <% end %>
+                                <h4 class="subtitle"><%= event.start_date %></h4>
+                                <div class="content">
+                                    <%= event.body%>
+                                </div>
+                            
+                        </div>
+                    <% end %>
+                <% else %>
+                    <div class="content">
+                        This user is not hosting any events at the moment.
+                    </div>
+                <% end %>
+        </div>
+        
     </div>
     <% if user_signed_in? && current_user != @user %>
         <div class="column is-one-quarter">
