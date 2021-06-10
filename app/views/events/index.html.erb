@@ -1,37 +1,55 @@
 <section class="section">
     <div class="columns">
-        <div class="column is-half is-offset-one-quarter">
-            <h2 class="title is-3">Upcoming Events</h2>
-            <% unless @events.upcoming.empty? %>
-                <% @events.upcoming.each do |event| %>
-                    <%= render 'events/event_snippet', event: event %> 
-                <% end %>
-            <% else %>
-            <div class="content">
-                There aren't any upcoming events at the moment.
+        <div class="column is-two-thirds is-offset-2">
+            <div class="tabs is-large is-boxed">
+                <ul>
+                    <li id="upcoming_events_tab" class="tab is-active"><a>Upcoming</a></li>
+                    <li id="ongoing_events_tab" class="tab"><a>Ongoing</a></li>
+                    <li id="past_events_tab" class="tab"><a>Past</a></li>
+                </ul>
             </div>
-            <% end %>
-            <h2 class="title is-3">Ongoing Events</h2>
-            <% unless @events.ongoing.empty? %>
-                <% @events.ongoing.each do |event| %>
-                    <%= render 'events/event_snippet', event: event %> 
-                <% end %>
-            <% else %>
-                <div class="content">
-                    There aren't any ongoing events at the moment.
-                </div>
-            <% end %>
 
-            <h2 class="title is-3">Past Events</h2>
-            <% unless @events.past.empty? %>
-                <% @events.past.each do |event| %>
-                    <%= render 'events/event_snippet', event: event %>
-                <% end %>
-            <% else %>
+            <div id="upcoming_events_container" class="container">
+                <h2 class="title is-3">Upcoming Events</h2>
+                <% unless @events.upcoming.empty? %>
+                    <% @events.upcoming.each do |event| %>
+                        <%= render 'events/event_snippet', event: event %> 
+                    <% end %>
+                <% else %>
                 <div class="content">
-                    There aren't any past events at the moment.
+                    There aren't any upcoming events at the moment.
                 </div>
-            <% end %>
+                <% end %>
+            </div>
+            
+            <div id="ongoing_events_container" class="container is-hidden">
+                <h2 class="title is-3">Ongoing Events</h2>
+                <% unless @events.ongoing.empty? %>
+                    <% @events.ongoing.each do |event| %>
+                        <%= render 'events/event_snippet', event: event %> 
+                    <% end %>
+                <% else %>
+                    <div class="content">
+                        There aren't any ongoing events at the moment.
+                    </div>
+                <% end %>
+            </div>
+            
+            <div class="container is-hidden" id="past_events_container">
+                <h2 class="title is-3">Past Events</h2>
+                <% unless @events.past.empty? %>
+                    <% @events.past.each do |event| %>
+                        <%= render 'events/event_snippet', event: event %>
+                    <% end %>
+                <% else %>
+                    <div class="content">
+                        There aren't any past events at the moment.
+                    </div>
+                <% end %>
+            </div>
+
+            
+            
         </div>
     </div>
 </section>
