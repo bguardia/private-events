@@ -4,12 +4,12 @@
 
             <div class="tabs is-centered is-large is-boxed">
                 <ul>
-                    <li class="is-active"><a>Sent</a></li>
-                    <li><a>Received</a></li>
+                    <li id="sent_invitations_tab" class="tab is-active"><a>Sent</a></li>
+                    <li id="received_invitations_tab" class="tab"><a>Received</a></li>
                 </ul>
             </div>
 
-            <div id="sent_invitations" class="container">
+            <div id="sent_invitations_container" class="container">
                 <% @sent_invitations.each do |sent_inv| %>
                     <div class="box">
                         <h3 class="title is-4">You invited <%= link_to sent_inv.invitee.name, user_path(sent_inv.invitee) %> to <%= link_to sent_inv.event.title, event_path(sent_inv.event) %></h3>
@@ -44,7 +44,7 @@
             
             </div>
             <br />
-            <div id="received_invitations" class="container">
+            <div id="received_invitations_container" class="container is-hidden">
                     <% @received_invitations.each do |received_inv| %>
                         <div class="box">
                             <h3 class="title is-4">You were invited to <%= link_to received_inv.event.title, event_path(received_inv.event) %> by <%= link_to received_inv.sender.name, user_path(received_inv.sender) %></h3>
