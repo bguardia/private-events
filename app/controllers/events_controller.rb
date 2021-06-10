@@ -78,7 +78,7 @@ class EventsController < ApplicationController
 
     private
     def event_params
-        params.require(:event).permit(:title, :body, :start_date, :end_date)
+        params.require(:event).permit(:title, :body, :start_date, :end_date, :openness)
     end
 
     def calculate_date

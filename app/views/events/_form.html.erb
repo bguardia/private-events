@@ -75,6 +75,15 @@
     </div>
 </fieldset>
 <br />
+    <div class="field">
+        <div class="control">
+            <%= f.label :openness, "Event settings", class: "label" %>
+            <div class="select">
+                <%= f.select :openness, Event::VALID_OPENNESS_SETTINGS.map { |e| [e.gsub("_", " ").capitalize, e] } %>
+            </div>
+        </div>
+    </div>
+
 <div class="field">
     <div class="control">
         <%= f.submit class: "button is-primary" %>

@@ -24,13 +24,18 @@ end
 puts "Creating events..."
 dummy_text = "Duis posuere diam suscipit ipsum porta, a iaculis sem fringilla. Morbi sagittis tincidunt dictum. Mauris vitae dapibus purus. Proin tempus eros in diam imperdiet varius. Maecenas id justo pulvinar, sagittis tortor eu, aliquet massa. Vivamus nibh nulla, suscipit vel auctor mollis, lacinia nec elit. Nulla ornare lacinia velit, ut auctor tortor fringilla a."
 hosts = User.find((1..10).to_a)
-current_date = DateTime.current
+current_date = DateTime.current.beginning_of_hour
+
+prng = Random.new
+openness_opts = Event::VALID_OPENNESS_SETTINGS
+
 hosts.each_with_index do |host, i|
     5.times do |c|
         host.hosted_events.create(title: "#{host.name}'s Weekly Get-Together",
                                   body: dummy_text,
-                                  start_date: current_date - c*7 - i,
-                                  end_date: (current_date - c*7 - i).advance(hours: 2))
+                                  start_date: current_date - c*7 + (25 - i),
+                                  end_date: (current_date - c*7 + (25 - i)).advance(hours: 2),
+                                  openness: openness_opts[prng.rand(openness_opts.length)])
     end
 end
 
@@ -39,7 +44,7 @@ puts "Adding attendees..."
 events = Event.all
 users = User.all
 usr_count = users.size
-prng = Random.new
+
 events.each do |event|
     rand_start = prng.rand(usr_count)
     rand_end = rand_start + prng.rand(usr_count - rand_start)

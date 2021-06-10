@@ -7,6 +7,10 @@ class Event < ApplicationRecord
     scope :ongoing, ->{ where("events.start_date < :current_datetime AND events.end_date > :current_datetime", current_datetime: DateTime.current)}
     scope :past, ->{ where("events.end_date < ?", DateTime.current) }
 
+    VALID_OPENNESS_SETTINGS = ['invite_only', 'public']
+
+    validates :openness, inclusion: {in: VALID_OPENNESS_SETTINGS }
+
     def pretty_start_date
         self.start_date.strftime('%B %-d, %Y')
     end
