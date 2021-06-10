@@ -3,7 +3,12 @@ class AttendeesController < ApplicationController
 
     def create
         @event = Event.find(params[:event_id])
-        @event.attendees << current_user
+        if @event.openness == 'public' || @event.invitees.exists?(current_user.id)
+            @event.attendees << current_user
+        else
+            flash[:alert] = "You need to be invited to join this event."
+        end
+
         redirect_to event_path(@event)
     end
 
