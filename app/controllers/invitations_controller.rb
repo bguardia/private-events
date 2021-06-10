@@ -29,6 +29,7 @@ class InvitationsController < ApplicationController
         @invitation = current_user.received_invitations.find_by(id: response_params[:id])
 
         if @invitation&.update(response_params)
+            @invitation.event << current_user if @invitation.status == 'accepted'
             flash[:notice] = "Successfully responded to invitation!"
         else
             flash[:alert] = "Unable to respond to invitation."

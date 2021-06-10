@@ -22,6 +22,8 @@
             &nbsp;to <%= @event.end_date.localtime.strftime('%k:%M') %>
             <% end %>
             &nbsp;(GMT <%= @event.start_date.localtime.formatted_offset%>)
+            <br />
+            <strong>Openness</strong>: <%= @event.openness.gsub("_", " ").capitalize %>
             <p><%= @event.body %></p>
         </div>
         <div class="content">
