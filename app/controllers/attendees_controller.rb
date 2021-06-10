@@ -3,7 +3,7 @@ class AttendeesController < ApplicationController
 
     def create
         @event = Event.find(params[:event_id])
-        if @event.openness == 'public' || @event.invitees.exists?(current_user.id)
+        if @event.openness == 'public' || @event.invitees.exists?(current_user.id) || @event.host == current_user
             @event.attendees << current_user
             @event.invitations.where(invitee_id: current_user.id)&.update(status: 'accepted')
             flash[:notice] = "You have successfully joined this event!"
